@@ -1,6 +1,6 @@
 import psycopg2
 
-
+#created tables
 def create_table():
     conn=psycopg2.connect("dbname='library_data' user='postgres' password='postgres1984' host='localhost' port='5432'")
     cur=conn.cursor()
