@@ -2,67 +2,90 @@ from tkinter import *
 from tkinter import ttk
 from datetime import datetime
 import backend
-from tabulate import tabulate
-
-
 
 def select_date1():
     now=datetime.now()
-    Entrytime = now.strftime("%Y-%m-%d , %I:%M %p")
+    Entrytime = now.strftime("%Y-%m-%d  %I:%M %p")
     #print(s1)
     if(first_name.get()=="" or last_name.get()=="" or employee_id.get()==""):
         pass
     else:
-        space='                                  '
+    
         listbox.insert(END,Entrytime)
         backend.insert1(first_name.get(),last_name.get(),employee_id.get(),Entrytime)
         listbox.delete(0,END)
-        listbox.insert(END, "Firstname                      \t\t\t\t\t\t  Lastname                             \t\t\t\t\t\t  Employeeid                             \t\t\t\t\t\t  Entrytime\n")
-        listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
         listbox.insert(END,"\n")
-        listbox.insert(END,(first_name.get()+space+last_name.get()+space+employee_id.get()+space+Entrytime))
+        listbox.insert(END, "Firstname                   \t\t\t\t\t\t  Lastname                          \t\t\t\t\t\t  Employeeid                          \t\t\t\t\t\t  Entrytime\n")
+        listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
+        #listbox.insert(END,"\n")
+        listbox.insert(END," ",(first_name.get()+" "+last_name.get()+","+" "+employee_id.get()+","+" "+Entrytime))
         
 #def get_selected_row():
    
 def select_date2():
-  
     now=datetime.now()
-    Exittime = now.strftime("%m/%d/%Y, %I:%M %p")
+    Exittime = now.strftime("%Y-%m-%d  %I:%M %p")
+    #print(s1)
     if(first_name.get()=="" or last_name.get()=="" or employee_id.get()==""):
         pass
     else:
+    
         listbox.insert(END,Exittime)
         backend.insert2(first_name.get(),last_name.get(),employee_id.get(),Exittime)
         listbox.delete(0,END)
-        listbox.insert(END, "Firstname                      \t\t\t\t\t\t  Lastname                             \t\t\t\t\t\t  Employeeid                             \t\t\t\t\t\t  Exittime\n")
-        listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
         listbox.insert(END,"\n")
-        listbox.insert(END,(first_name.get(),last_name.get(),employee_id.get(),Exittime))
+        listbox.insert(END, "Firstname                   \t\t\t\t\t\t  Lastname                          \t\t\t\t\t\t  Employeeid                          \t\t\t\t\t\t  Entrytime\n")
+        listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
+        #listbox.insert(END,"\n")
+        #listbox.insert(END," ",(first_name.get(),last_name.get(),employee_id.get(),Exittime))
+        listbox.insert(END," ",(first_name.get()+" "+last_name.get()+","+" "+employee_id.get()+","+" "+Exittime))
     
 def view_command():
+    space='                        '
     listbox.delete(0,END)
-    listbox.insert(END, "Firstname                      \t\t\t\t\t\t  Lastname                             \t\t\t\t\t\t  Employeeid                             \t\t\t\t\t\t  Entrytime\n")
-    listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
     listbox.insert(END,"\n")
-    for row in backend.view1():
-        listbox.insert(END,row)
-
+   # listbox.insert(END, "Firstname                 \t\t\t\t\t\t  Lastname                     \t\t\t\t\t\t  Employeeid                      \t\t\t\t\t\t  Entrytime\n")
+    listbox.insert(END, "Firstname"+space+"Lastname"+space+"Employeeid"+space+"Entrytime\n")
+    listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
+    #listbox.insert(END,"\n")
+    for item in backend.view1():
+    #for row in backend.view1():
+        #listbox.insert(END," ",item)
+        
+        listbox.insert(END," ",item[0]+" "+item[1]+","+" "+item[2]+" ,"+" "+item[3])
+        
+        #listbox.insert(END,item[0]+space+item[1]+space+item[2]+space+item[3])
+       
 def view_exit():
+    space='                        '
     listbox.delete(0,END)
-    listbox.insert(END, "Firstname                      \t\t\t\t\t\t  Lastname                             \t\t\t\t\t\t  Employeeid                             \t\t\t\t\t\t  Exittime\n")
-    listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
     listbox.insert(END,"\n")
-    for row in backend.view2():
-        listbox.insert(END,row)
+    listbox.insert(END, "Firstname"+space+"Lastname"+space+"Employeeid"+space+"Exittime\n")
+    listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
+    #listbox.insert(END,"\n")
+    for rows in backend.view2():
+    #for row in backend.view1():
+        #listbox.insert(END," ",item)
+        
+        listbox.insert(END," ",rows[0]+" "+rows[1]+","+" "+rows[2]+" ,"+" "+rows[3])
+        
+        #listbox.insert(END,item[0]+space+item[1]+space+item[2]+space+item[3])
+    
+        
 
 def search_command():
     listbox.delete(0,END)
     listbox.delete(0,END)
-    listbox.insert(END, "Firstname               \t\t\t\t\t\t  Lastname                  \t\t\t\t\t\t  Employeeid                   \t\t\t\t\t\t  Entrytime                \t\t\t\t\t\t Exittime\n")
-    listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
     listbox.insert(END,"\n")
-    for row in backend.search(first_name.get() ,last_name.get(), employee_id.get()):
-       listbox.insert(END,row)
+    listbox.insert(END, "Firstname            \t\t\t\t\t\t  Lastname               \t\t\t\t\t\t  Employeeid                \t\t\t\t\t\t  Entrytime           \t\t\t\t\t\t Exittime\n")
+    listbox.insert(END,"--------------------------------------------------------------------------------------------------------------------------------------------")
+    #listbox.insert(END,"\n")
+    
+    for row in backend.search(first_name.get(),last_name.get(),employee_id.get()):
+       
+      # listbox.insert(END," ",row)
+        listbox.insert(END," ",row[0]+" "+row[1]+","+" "+row[2]+" ,"+" "+row[3]+" ,"+" "+row[4])
+    
 
 
 
@@ -71,7 +94,7 @@ window=Tk()
 window.wm_title("Library register")
 frame1=Frame(window)
 frame1.pack()
-treeview=ttk.Treeview(window)
+
 
     
 l1=Label(frame1,text="Firstname",font="Times 12 bold",width=12)
@@ -101,12 +124,12 @@ b2=Button(frame2,text="TimeOut",font="Times 11",width=9,command=select_date2)
 b2.grid(row=5,column=1)
 b3=Button(frame2,text="ViewEntries",font="Times 11",width=9,command=view_command)
 b3.grid(row=5,column=2)
-b3=Button(frame2,text="Viewexit",font="Times 11",width=9,command=view_exit)
-b3.grid(row=5,column=3)
-b4=Button(frame2,text="Search",font="Times 11",width=9,command=search_command)
-b4.grid(row=5,column=4)
-b5=Button(frame2,text="Close",font="Times 11",width=9,command=window.destroy)
-b5.grid(row=5,column=5)
+b4=Button(frame2,text="Viewexit",font="Times 11",width=9,command=view_exit)
+b4.grid(row=5,column=3)
+b5=Button(frame2,text="Search",font="Times 11",width=9,command=search_command)
+b5.grid(row=5,column=4)
+b6=Button(frame2,text="Close",font="Times 11",width=9,command=window.destroy)
+b6.grid(row=5,column=5)
 
 
 frame3 = Frame(window)       
@@ -117,6 +140,7 @@ listbox= Listbox(frame3, yscrollcommand=scroll.set,font="Times 11",width=80,heig
 scroll.config(command=listbox.yview)
 scroll.pack(side=RIGHT, fill=Y)
 listbox.pack(side=LEFT, fill=BOTH,expand=1)
+
 #window.configure(background='#a9a9a9')
 window.resizable(width=False,height=False)
 
